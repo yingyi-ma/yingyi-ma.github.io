@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://yingyi-ma.github.io/images/03_spring_flux_begin/1981_0.png">
 <meta property="og:image" content="http://yingyi-ma.github.io/images/03_spring_flux_begin/1983_0.png">
 <meta property="og:image" content="http://yingyi-ma.github.io/images/03_spring_flux_begin/1985_0.png">
-<meta property="og:updated_time" content="2019-04-26T09:09:16.609Z">
+<meta property="og:updated_time" content="2019-04-26T09:11:12.827Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring WebFlux 浅谈">
 <meta name="twitter:description" content="要了解 WebFlux ，首先了解下什么是 Reactive Streams。  Reactive Streams Reactive Streams 是 JVM 中面向流的库标准和规范：  处理可能无限数量的元素 按顺序处理 组件之间异步传递 强制性非阻塞背压（Backpressure）  Backpressure - 背压背压是一种常用策略，使得发布者拥有无限制的缓冲区存储元素，用于确保发布">
@@ -376,7 +376,7 @@
 <p>Reactor 是一个基于 JVM 之上的异步应用基础库。为 Java 、Groovy 和其他 JVM 语言提供了构建基于事件和数据驱动应用的抽象库。Reactor 性能相当高，在最新的硬件平台上，使用无堵塞分发器每秒钟可处理 1500 万事件。</p>
 <p><strong>简单说，Reactor 是一个轻量级 JVM 基础库，帮助你的服务或应用高效，异步地传递消息。Reactor 中有两个非常重要的概念 Flux 和 Mono</strong> 。</p>
 <p><img src="/images/03_spring_flux_begin/1985_0.png" alt="1985_0.png"></p>
-<h5 id="上图webFlux各个模块："><a href="#上图webFlux各个模块：" class="headerlink" title="上图webFlux各个模块："></a>上图webFlux各个模块：</h5><ul>
+<h5 id="上图所示，webFlux各个模块："><a href="#上图所示，webFlux各个模块：" class="headerlink" title="上图所示，webFlux各个模块："></a>上图所示，webFlux各个模块：</h5><ul>
 <li><p>Router Functions: 对标@Controller，@RequestMapping等标准的Spring MVC注解，提供一套函数式风格的API，用于创建Router，Handler和Filter。</p>
 </li>
 <li><p>WebFlux: 核心组件，协调上下游各个组件提供响应式编程支持。</p>
@@ -386,7 +386,7 @@
 </ul>
 <h4 id="Flux-和-Mono"><a href="#Flux-和-Mono" class="headerlink" title="Flux 和 Mono"></a>Flux 和 Mono</h4><p>Flux 和 Mono 是 Reactor 中的两个基本概念。<strong>Flux 表示的是包含 0 到 N 个元素的异步序列</strong>。在该序列中可以包含三种不同类型的消息通知：正常的包含元素的消息、序列结束的消息和序列出错的消息。当消息通知产生时，订阅者中对应的方法 onNext(), onComplete()和 onError()会被调用。</p>
 <p><strong>Mono 表示的是包含 0 或者 1 个元素的异步序列</strong>。该序列中同样可以包含与 Flux 相同的三种类型的消息通知。Flux 和 Mono 之间可以进行转换。对一个 Flux 序列进行计数操作，得到的结果是一个 Mono对象。把两个 Mono 序列合并在一起，得到的是一个 Flux 对象。</p>
-<h4 id="webFlux-优点"><a href="#webFlux-优点" class="headerlink" title="webFlux 优点"></a>webFlux 优点</h4><p>根据官方的说法，webflux主要在如下两方面体现出独有的优势：　　</p>
+<h4 id="WebFlux-优点"><a href="#WebFlux-优点" class="headerlink" title="WebFlux 优点"></a>WebFlux 优点</h4><p>根据官方的说法，webflux主要在如下两方面体现出独有的优势：　　</p>
 <p><strong>1. 非阻塞式　　　　</strong></p>
 <p>其实在servlet3.1提供了非阻塞的API，WebFlux提供了一种比其更完美的解决方案。使用非阻塞的方式可以利用较小的线程或硬件资源来处理并发进而提高其可伸缩性　　</p>
 <p><strong>2. 函数式编程端点　　</strong>　　</p>
@@ -590,7 +590,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Reactive-Streams"><span class="nav-number">1.</span> <span class="nav-text">Reactive Streams</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Backpressure-背压"><span class="nav-number">1.0.1.</span> <span class="nav-text">Backpressure - 背压</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Reactive-Streams-响应式流"><span class="nav-number">1.0.2.</span> <span class="nav-text">Reactive Streams - 响应式流</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Reactive-Streams的特点-Responsive"><span class="nav-number">1.0.3.</span> <span class="nav-text">Reactive Streams的特点 - Responsive</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是函数式"><span class="nav-number">1.0.4.</span> <span class="nav-text">什么是函数式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是响应式"><span class="nav-number">1.0.5.</span> <span class="nav-text">什么是响应式</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是-webFlux"><span class="nav-number">2.</span> <span class="nav-text">什么是 webFlux</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Reactor"><span class="nav-number">2.1.</span> <span class="nav-text">Reactor</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#上图webFlux各个模块："><span class="nav-number">2.1.1.</span> <span class="nav-text">上图webFlux各个模块：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Flux-和-Mono"><span class="nav-number">2.2.</span> <span class="nav-text">Flux 和 Mono</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#webFlux-优点"><span class="nav-number">2.3.</span> <span class="nav-text">webFlux 优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WebFlux性能"><span class="nav-number">2.4.</span> <span class="nav-text">WebFlux性能</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Reactive-Streams"><span class="nav-number">1.</span> <span class="nav-text">Reactive Streams</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Backpressure-背压"><span class="nav-number">1.0.1.</span> <span class="nav-text">Backpressure - 背压</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Reactive-Streams-响应式流"><span class="nav-number">1.0.2.</span> <span class="nav-text">Reactive Streams - 响应式流</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Reactive-Streams的特点-Responsive"><span class="nav-number">1.0.3.</span> <span class="nav-text">Reactive Streams的特点 - Responsive</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是函数式"><span class="nav-number">1.0.4.</span> <span class="nav-text">什么是函数式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是响应式"><span class="nav-number">1.0.5.</span> <span class="nav-text">什么是响应式</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是-webFlux"><span class="nav-number">2.</span> <span class="nav-text">什么是 webFlux</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Reactor"><span class="nav-number">2.1.</span> <span class="nav-text">Reactor</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#上图所示，webFlux各个模块："><span class="nav-number">2.1.1.</span> <span class="nav-text">上图所示，webFlux各个模块：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Flux-和-Mono"><span class="nav-number">2.2.</span> <span class="nav-text">Flux 和 Mono</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WebFlux-优点"><span class="nav-number">2.3.</span> <span class="nav-text">WebFlux 优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WebFlux性能"><span class="nav-number">2.4.</span> <span class="nav-text">WebFlux性能</span></a></li></ol></li></div>
             
 
           </div>
