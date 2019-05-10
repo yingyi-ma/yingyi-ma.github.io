@@ -98,7 +98,7 @@
 <meta property="og:image" content="http://yingyi-ma.github.io/images/04_easydarwin/8.png">
 <meta property="og:image" content="http://yingyi-ma.github.io/images/04_easydarwin/9.png">
 <meta property="og:image" content="http://yingyi-ma.github.io/images/04_easydarwin/10.png">
-<meta property="og:updated_time" content="2019-05-10T09:02:37.932Z">
+<meta property="og:updated_time" content="2019-05-10T09:04:35.356Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="EasyDarwin 初步搭建">
 <meta name="twitter:description" content="前言EasyDarin是一款基于RTSP协议的流媒体服务器开源框架。 什么是流媒体 流媒体（streaming media） 是指将一连串的媒体数据压缩后，经过网上分段发送数据，在网上即时传输影音以供观赏的一种技术与过程，此技术使得数据包得以像流水一样发送；如果不使用此技术，就必须在使用前下载整个媒体文件。流媒体文件一般定义在bit层次结构，因此流数据包并不一定必须按照字节对齐，虽然通常的媒体文件">
@@ -374,7 +374,7 @@
 <li>查看回放</li>
 </ol>
 </blockquote>
-<p>在本系统ffmpeg根目录下执行以下命令<br>注意：需要准备MP4或flv文件，这里暂不提供</p>
+<p>在本系统ffmpeg根目录下执行以下命令</p>
 <p><strong>测试MP4文件</strong>：<br><a href="http://cdn-media.jingzong.org/mp4/R01/R01-001/R01-001-0040.mp4" target="_blank" rel="noopener">http://cdn-media.jingzong.org/mp4/R01/R01-001/R01-001-0040.mp4</a></p>
 <h5 id="ffmpeg-推流"><a href="#ffmpeg-推流" class="headerlink" title="ffmpeg 推流"></a>ffmpeg 推流</h5><p>文件路径：R01-001-0040.mp4<br>协议类型：tcp<br>vcodec：h264<br>rtsp地址（默认本机IP端口号554、test是自定义名称）：rtsp://192.168.3.20:554/test<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -re -i R01-001-0040.mp4 -rtsp_transport tcp -vcodec h264 -f rtsp rtsp://192.168.3.20:554/test</span><br></pre></td></tr></table></figure></p>
 <p><img src="/images/04_easydarwin/6.png" alt><br><img src="/images/04_easydarwin/7.png" alt></p>
