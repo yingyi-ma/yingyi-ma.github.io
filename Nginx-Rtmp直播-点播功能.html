@@ -87,14 +87,14 @@
 <meta property="og:site_name" content="森林时光ブ">
 <meta property="og:description" content="应用环境系统: Centos 7.2Nginx（本案例使用的事是nginx-1.16.0）nginx-rtmp-moduleffmpeg (推流测试使用，或进行流格式转换) 安装nginx-rtmp-module插件1234cd nginx-1.16.0./configure --with-http_ssl_module --add-module=../nginx-rtmp-module-m">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://forest-time.io/images/05_rtmp/0.png">
-<meta property="og:image" content="https://forest-time.io/images/05_rtmp/1.png">
-<meta property="og:image" content="https://forest-time.io/images/05_rtmp/2.png">
-<meta property="og:updated_time" content="2019-05-17T08:59:18.777Z">
+<meta property="og:image" content="https://forest-time.io/images/06_rtmp/0.png">
+<meta property="og:image" content="https://forest-time.io/images/06_rtmp/1.png">
+<meta property="og:image" content="https://forest-time.io/images/06_rtmp/2.png">
+<meta property="og:updated_time" content="2019-05-17T09:00:41.771Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx-Rtmp直播&#x2F;点播功能">
 <meta name="twitter:description" content="应用环境系统: Centos 7.2Nginx（本案例使用的事是nginx-1.16.0）nginx-rtmp-moduleffmpeg (推流测试使用，或进行流格式转换) 安装nginx-rtmp-module插件1234cd nginx-1.16.0./configure --with-http_ssl_module --add-module=../nginx-rtmp-module-m">
-<meta name="twitter:image" content="https://forest-time.io/images/05_rtmp/0.png">
+<meta name="twitter:image" content="https://forest-time.io/images/06_rtmp/0.png">
 
 
 
@@ -354,10 +354,10 @@
 <p>http配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">     server &#123;</span><br><span class="line">            listen      8080;</span><br><span class="line">            location /hls &#123;</span><br><span class="line">                # 用于 HLS 片段</span><br><span class="line">                types &#123;</span><br><span class="line">                    application/vnd.apple.mpegurl m3u8;</span><br><span class="line">                    video/mp2t ts;</span><br><span class="line">                &#125;</span><br><span class="line">                root /tmp;</span><br><span class="line">                add_header Cache-Control no-cache;</span><br><span class="line">            &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
 <h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>可通过上述注解中的rtmp地址进行测试</p>
 <p><strong>推流</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -re -i 35.flv  -vcodec copy -f flv rtmp://192.168.3.20:1935/live/test</span><br></pre></td></tr></table></figure></p>
-<p><img src="/images/05_rtmp/0.png" alt><br><strong>直播</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffplay rtmp://192.168.3.20:1935/live/test</span><br></pre></td></tr></table></figure></p>
-<p><img src="/images/05_rtmp/1.png" alt></p>
+<p><img src="/images/06_rtmp/0.png" alt><br><strong>直播</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffplay rtmp://192.168.3.20:1935/live/test</span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/06_rtmp/1.png" alt></p>
 <p><strong>点播</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffplay rtmp://192.168.3.20:1935/record/test-1558006517-20190516_193517.flv</span><br></pre></td></tr></table></figure></p>
-<p><img src="/images/05_rtmp/2.png" alt></p>
+<p><img src="/images/06_rtmp/2.png" alt></p>
 
       
     </div>
