@@ -1,0 +1,5069 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="文档,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="可通过 FlightHub WebSDK 对系统进行扩展和重构，搭建私有平台，从中挖掘商业价值。大疆司空官网大疆司空安装包、Pilot PE APP、使用说明书、安装辅助软件  大疆司空（FlightHub） WebSDK REST api 介绍粗略翻译，仅供参考。 Overview（概览）关于 REST API大疆司空 WebSDK REST API v3 官方文档提供了无人机、团队、驾驶">
+<meta name="keywords" content="文档">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FlightHub-WebSDK（中文）">
+<meta property="og:url" content="https://forest-time.io/FlightHub-WebSDK（中文）.html">
+<meta property="og:site_name" content="森林时光ブ">
+<meta property="og:description" content="可通过 FlightHub WebSDK 对系统进行扩展和重构，搭建私有平台，从中挖掘商业价值。大疆司空官网大疆司空安装包、Pilot PE APP、使用说明书、安装辅助软件  大疆司空（FlightHub） WebSDK REST api 介绍粗略翻译，仅供参考。 Overview（概览）关于 REST API大疆司空 WebSDK REST API v3 官方文档提供了无人机、团队、驾驶">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-21T10:39:30.634Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="FlightHub-WebSDK（中文）">
+<meta name="twitter:description" content="可通过 FlightHub WebSDK 对系统进行扩展和重构，搭建私有平台，从中挖掘商业价值。大疆司空官网大疆司空安装包、Pilot PE APP、使用说明书、安装辅助软件  大疆司空（FlightHub） WebSDK REST api 介绍粗略翻译，仅供参考。 Overview（概览）关于 REST API大疆司空 WebSDK REST API v3 官方文档提供了无人机、团队、驾驶">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://forest-time.io/FlightHub-WebSDK（中文）.html">
+
+
+
+
+
+  <title>FlightHub-WebSDK（中文） | 森林时光ブ</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">森林时光ブ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">The Lord of the Small Forest</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://forest-time.io/FlightHub-WebSDK（中文）.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YingYi.Ma">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="森林时光ブ">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">FlightHub-WebSDK（中文）</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-20T16:00:16+08:00">
+                2019-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/FlightHub-WebSDK（中文）.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/FlightHub-WebSDK（中文）.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/FlightHub-WebSDK（中文）.html" class="leancloud_visitors" data-flag-title="FlightHub-WebSDK（中文）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <script type="text/javascript" src="/js/src/bai.js"></script>
+
+<blockquote>
+<p>可通过 FlightHub WebSDK 对系统进行扩展和重构，搭建私有平台，从中挖掘商业价值。<br><a href="https://www.dji.com/cn/flighthub" target="_blank" rel="noopener">大疆司空官网</a><br><a href="https://www.dji.com/cn/flighthub/info#downloads" target="_blank" rel="noopener">大疆司空安装包、Pilot PE APP、使用说明书、安装辅助软件</a></p>
+</blockquote>
+<p>大疆司空（FlightHub） WebSDK REST api 介绍<br>粗略翻译，仅供参考。</p>
+<h2 id="Overview（概览）"><a href="#Overview（概览）" class="headerlink" title="Overview（概览）"></a>Overview（概览）</h2><h3 id="关于-REST-API"><a href="#关于-REST-API" class="headerlink" title="关于 REST API"></a>关于 REST API</h3><p>大疆司空 WebSDK REST API v3 官方文档提供了无人机、团队、驾驶员用户、飞行统计和直播流。</p>
+<h3 id="版本信息"><a href="#版本信息" class="headerlink" title="版本信息"></a>版本信息</h3><p>版本 : 3.0.0</p>
+<h3 id="URI-方案"><a href="#URI-方案" class="headerlink" title="URI 方案"></a>URI 方案</h3><p>Host : Server_Address<br>BasePath : /fhsdk/v3<br>Schemes : HTTP, HTTPS</p>
+<h3 id="功能分类"><a href="#功能分类" class="headerlink" title="功能分类"></a>功能分类</h3><ul>
+<li>User : 用户管理</li>
+<li>Team : 团队管理</li>
+<li>Drone : 无人机管理</li>
+<li>Flight Records : 飞行记录</li>
+<li>Flight Statistics : 飞行统计</li>
+<li>Live Streaming : 直播流</li>
+<li>Real-time Report: 实时报告</li>
+</ul>
+<h4 id="Consumes-（content-type）"><a href="#Consumes-（content-type）" class="headerlink" title="Consumes （content-type）"></a>Consumes （content-type）</h4><ul>
+<li>application/json</li>
+</ul>
+<h3 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h3><p>有两种用户类型的REST API：<br>1.<strong>Application Server（应用服务器）</strong> Application Server直接通过超级管理员权限控制FlightHub，Application Server必须带有两个Key ：<strong>AppId</strong> 和 <strong>SignKey</strong>.<br>2.<strong>End User(终端用户)</strong> 意思就是移动端（如:DJI Pliot）直接控制无人机并连接FlightHub平台，<strong>End User(终端用户)</strong> 必须使用账户(<strong>account</strong>)和密码(<strong>password</strong>)并且需要带着<strong>Common AppId</strong>(flighthub-pilot默认)权限和每个会话(session)中动态生成的<strong>SignKey</strong></p>
+<h2 id="Security（安全认证）"><a href="#Security（安全认证）" class="headerlink" title="Security（安全认证）"></a>Security（安全认证）</h2><h3 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h3><p>Http Request请求的Headers中必须带有 ：<strong>FH-AppId, FH-ReqId, FH-Ts, FH-Sign</strong><br>终端用户的Header中必须带有 <strong>FH-Token</strong></p>
+<h4 id="怎样认证请求（sign-a-request）"><a href="#怎样认证请求（sign-a-request）" class="headerlink" title="怎样认证请求（sign a request）"></a>怎样认证请求（sign a request）</h4><h5 id="一、获取签名秘钥"><a href="#一、获取签名秘钥" class="headerlink" title="一、获取签名秘钥"></a>一、获取签名秘钥</h5><p>获取签名秘钥的伪代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SignKey1 = HMAC_SHA1(FH-Ts, SignKey)</span><br><span class="line">MasterSignKey = HMAC_SHA1(FH-AppId, SignKey1)</span><br></pre></td></tr></table></figure></p>
+<p>HMAC_SHA1 表示一个以二进制格式返回输出的 HMAC-SHA1函数。<br>这个函数的第一个参数是数据信息，第二个参数是Key。<br>若生成SignKey1，应该使用<strong>SignKey</strong> 作为 hash key, FH-Ts 作为数据信息。<br>若生成签名秘钥，应该使用SignKey1作为 hash key,FH-AppId 作为数据。</p>
+<h5 id="二、计算签名"><a href="#二、计算签名" class="headerlink" title="二、计算签名"></a>二、计算签名</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Sign = std_base64(HMAC_SHA1(sign_data, MasterSignKey))</span><br></pre></td></tr></table></figure>
+<p>要签名的数据（<strong>sign_data</strong>）是整个请求主体的内容。在GET请求中sign_data是空字符串。<br>使用主签名密钥作为key来计算sign_data的签名。</p>
+<p>最后的签名字符串是base64编码的（带填充的标准编码）字符串签名。</p>
+<h5 id="三、HTTP-request请求中添加签名"><a href="#三、HTTP-request请求中添加签名" class="headerlink" title="三、HTTP request请求中添加签名"></a>三、HTTP request请求中添加签名</h5><p>可以将签名字符串放入以下两个方法中的其中一个：</p>
+<ul>
+<li>HTTP header中命名 <strong>FH-Sign</strong></li>
+<li>查询字符串命名 <strong>FH-Sign</strong></li>
+</ul>
+<h4 id="代码简述"><a href="#代码简述" class="headerlink" title="代码简述"></a>代码简述</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">fhTs  := 1543478800840       //  自Unix时代以来的时间（毫秒）</span><br><span class="line">appID := &quot;flighthub-admin&quot;</span><br><span class="line">reqID := &quot;reqXXXX&quot;           //  用于跟踪的每个请求的唯一ID。</span><br><span class="line"></span><br><span class="line">req.Header.Set(&quot;FH-AppId&quot;, appID)</span><br><span class="line">req.Header.Set(&quot;FH-Ts&quot;,fhTs)</span><br><span class="line">req.Header.Set(&quot;FH-ReqId&quot;, reqID)</span><br><span class="line"></span><br><span class="line">key1 := HmacSha1([]byte(fhTs), []byte(key)) // hmacsha1结果是二进制格式，不是十六进制或base64编码的。</span><br><span class="line">masterKey := HmacSha1([]byte(appID), key1)</span><br><span class="line"></span><br><span class="line">var buf []byte</span><br><span class="line">if req.Body != nil &#123;</span><br><span class="line">        buf, _ = ioutil.ReadAll(req.Body)</span><br><span class="line">&#125;</span><br><span class="line">rc := ioutil.NopCloser(bytes.NewBuffer(buf))</span><br><span class="line">req.Body = rc</span><br><span class="line"></span><br><span class="line">req.Header.Add(&quot;FH-Sign&quot;, Sha1HashBase64(buf, masterKey)) //  放入fh符号头时使用base64编码哈希</span><br></pre></td></tr></table></figure>
+<h3 id="FH-AppId"><a href="#FH-AppId" class="headerlink" title="FH-AppId"></a>FH-AppId</h3><p>App ID</p>
+<p>类型 : apiKey<br>名称 : FH-AppId<br>位置 : HEADER</p>
+<h3 id="FH-Token"><a href="#FH-Token" class="headerlink" title="FH-Token"></a>FH-Token</h3><p>Token ID</p>
+<p>类型 : apiKey<br>名称 : FH-Token<br>位置 : HEADER</p>
+<h3 id="FH-ReqId"><a href="#FH-ReqId" class="headerlink" title="FH-ReqId"></a>FH-ReqId</h3><p>用于跟踪的每个请求的唯一ID。</p>
+<p>类型 : apiKey<br>名称 : FH-ReqId<br>位置 : HEADER</p>
+<h3 id="FH-Ts"><a href="#FH-Ts" class="headerlink" title="FH-Ts"></a>FH-Ts</h3><p>自Unix时代以来的时间（毫秒）</p>
+<p>类型 : apiKey<br>名称 : FH-Ts<br>位置 : HEADER</p>
+<h3 id="FH-Sign"><a href="#FH-Sign" class="headerlink" title="FH-Sign"></a>FH-Sign</h3><p>签名</p>
+<p>类型 : apiKey<br>名称 : FH-Sign<br>位置 : HEADER</p>
+<h2 id="Resources-资源"><a href="#Resources-资源" class="headerlink" title="Resources ( 资源 )"></a>Resources ( 资源 )</h2><h3 id="身份验证"><a href="#身份验证" class="headerlink" title="身份验证"></a>身份验证</h3><p>用户身份验证</p>
+<h4 id="用户登录"><a href="#用户登录" class="headerlink" title="用户登录"></a>用户登录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST /auth/login</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters（参数）</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FormData</strong></td>
+<td><strong>account</strong>（必须）</td>
+<td>用户账户</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>FormData</strong></td>
+<td><strong>password</strong>（必须）</td>
+<td>用户密码</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses（响应）</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>成功响应</td>
+<td><a href="#Response200">Response 200</a></td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="Response200"></a>Response 200</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong></td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong></td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+<tr>
+<td><strong>data</strong></td>
+<td></td>
+<td><a href="#data_login">data</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="data_login"></a>data</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>account</strong></td>
+<td>登录账户</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>user_id</strong></td>
+<td>用户id</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>nick_name</strong></td>
+<td>用户的nick名称</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>token</strong></td>
+<td>在会话中使用</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>signkey</strong></td>
+<td>用于请求中</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>validity</strong></td>
+<td>token过期时间，以Unix秒为单位</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Consumes</strong></p>
+<ul>
+<li>application/x-www-form-urlencoded</li>
+<li>application/json</li>
+</ul>
+<p><strong>Produces</strong></p>
+<ul>
+<li>application/json</li>
+</ul>
+<h4 id="用户退出"><a href="#用户退出" class="headerlink" title="用户退出"></a>用户退出</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST /auth/logout</span><br></pre></td></tr></table></figure>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th>Http编码</th>
+<th>方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>无</td>
+</tr>
+<tr>
+<td>400</td>
+<td>无</td>
+</tr>
+<tr>
+<td>500</td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Consumes</strong></p>
+<ul>
+<li>application/json</li>
+</ul>
+<p><strong>Produces</strong></p>
+<ul>
+<li>application/json</li>
+</ul>
+<h4 id="更新Token，扩展认证到期时间"><a href="#更新Token，扩展认证到期时间" class="headerlink" title="更新Token，扩展认证到期时间"></a>更新Token，扩展认证到期时间</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST /auth/updatetoken</span><br></pre></td></tr></table></figure>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP 编码</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>成功响应</td>
+<td><a href="#updatetoken_resp200">Response 200</a></td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="updatetoken_resp200"><a>Response 200</a></a></strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong></td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong></td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+<tr>
+<td><strong>data</strong></td>
+<td></td>
+<td><a href="#updatetoken_data">data</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="updatetoken_data"></a>data</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>token</strong></td>
+<td>会话中用的令牌</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>signkey</strong></td>
+<td>用于请求中的key</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>validity</strong></td>
+<td>令牌过期时间，以Unix秒为单位</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Produces</strong></p>
+<ul>
+<li>application/json</li>
+</ul>
+<h3 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h3><p>用户管理</p>
+<h4 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST /users</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Body</strong></td>
+<td><strong>user</strong></td>
+<td>用于创建用户</td>
+<td><a href="#UserCreateModel">UserCreateModel</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP</strong> <strong>编码</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>成功响应</td>
+<td><a href="#users_resp200">Response 200</a></td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="users_resp200"></a>Response 200</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong></td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong></td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+<tr>
+<td><strong>data</strong></td>
+<td></td>
+<td><a href="#users_data">data</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="users_data"></a>data</strong></p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+<th>方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>id</strong></td>
+<td>用户ID <strong>如：</strong><code>&quot;USERID_1&quot;</code></td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<h4 id="获取所有用户"><a href="#获取所有用户" class="headerlink" title="获取所有用户"></a>获取所有用户</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /users</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>teamId</strong>（非必须）</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>成功响应</td>
+<td><a href="#users_get_resp200">Response 200</a></td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="users_get_resp200"></a>Response 200</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong></td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong></td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+<tr>
+<td><strong>data</strong></td>
+<td></td>
+<td><a href="#getusersdata">data</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="getusersdata"></a>data</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>users</strong></td>
+<td>&lt; <a href="#UserGetModel">UserGetModel</a> &gt; array</td>
+</tr>
+</tbody>
+</table>
+<h4 id="通过用户ID获取用户信息"><a href="#通过用户ID获取用户信息" class="headerlink" title="通过用户ID获取用户信息"></a>通过用户ID获取用户信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /users/&#123;id&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>id</strong>（必须）</td>
+<td>用户ID,使用<code>self</code>更新当前会话用户</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>成功响应</td>
+<td><a href="#get_userid_resq200">Response 200</a></td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p><strong><a href="get_userid_resq200"></a>Response 200</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong></td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong></td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+<tr>
+<td><strong>data</strong></td>
+<td></td>
+<td><a href="#UserGetModel">UserGetModel</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="修改用户信息"><a href="#修改用户信息" class="headerlink" title="修改用户信息"></a>修改用户信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PUT /users/&#123;id&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>id</strong>（必须）</td>
+<td>用户ID,使用<code>self</code>更新当前会话用户</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>Body</strong></td>
+<td><strong>user</strong>（非必须）</td>
+<td>用于更新的用户</td>
+<td><a href="#UserUpdateModel">UserUpdateModel</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<h4 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE /users/&#123;id&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>id</strong>（必选）</td>
+<td>用户ID,使用<code>self</code>更新当前会话用户</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<h3 id="团队"><a href="#团队" class="headerlink" title="团队"></a>团队</h3><p>团队管理</p>
+<h4 id="创建团队"><a href="#创建团队" class="headerlink" title="创建团队"></a>创建团队</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST /teams</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Body</strong></td>
+<td><strong>team</strong>（可选）</td>
+<td>用于创建团队</td>
+<td><a href="#TeamCreateModel">TeamCreateModel</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>成功响应</td>
+<td><a href="#postTeamsResp200">Response 200</a></td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="postTeamsResp200"></a>Response 200</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong></td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong></td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+<tr>
+<td><strong>data</strong></td>
+<td></td>
+<td><a href="#postTeamsData">data</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="postTeamsData"></a>data</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>id</strong></td>
+<td>团队ID <strong>如：</strong><code>32</code></td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h4 id="获取所有团队"><a href="#获取所有团队" class="headerlink" title="获取所有团队"></a>获取所有团队</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /teams</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>showAncestorTeams</strong>（非必须）</td>
+<td>显示祖先团队的层次结构</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>showSubTeams</strong>（非必须）</td>
+<td>显示子团队层次结构</td>
+<td>boolean</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>成功响应</td>
+<td><a href="#getTeamResp200">Response 200</a></td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="getTeamResp200"></a>Response 200</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong></td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong></td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+<tr>
+<td><strong>data</strong></td>
+<td></td>
+<td><a href="#data_teams_get">data</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="data_teams_get"></a>data</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>teams</strong>（必须）</td>
+<td>&lt; <a href="#UserGetModel">UserGetModel</a> &gt; array</td>
+</tr>
+</tbody>
+</table>
+<h4 id="通过团队ID获取团队"><a href="#通过团队ID获取团队" class="headerlink" title="通过团队ID获取团队"></a>通过团队ID获取团队</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /teams/&#123;id&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>id</strong>（必须）</td>
+<td>团队ID</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>成功响应</td>
+<td><a href="#getTeamIdResp200">Response 200</a></td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="getTeamIdResp200"></a>Response 200</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong></td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong></td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+<tr>
+<td><strong>data</strong></td>
+<td></td>
+<td><a href="#TeamGetModel">TeamGetModel</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="更新团队信息"><a href="#更新团队信息" class="headerlink" title="更新团队信息"></a>更新团队信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PUT /teams/&#123;id&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>id</strong>（必须）</td>
+<td>团队ID</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>Body</strong></td>
+<td><strong>team</strong>（非必须）</td>
+<td>要创建的团队</td>
+<td><a href="#TeamUpdateModel">TeamUpdateModel</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<h4 id="删除团队"><a href="#删除团队" class="headerlink" title="删除团队"></a>删除团队</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE /teams/&#123;id&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>id</strong>（必须）</td>
+<td>团队ID</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<h4 id="添加团队成员"><a href="#添加团队成员" class="headerlink" title="添加团队成员"></a>添加团队成员</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST /teams/&#123;id&#125;/members</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>id</strong>（必须）</td>
+<td>团队ID</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>Body</strong></td>
+<td><strong>member</strong>（非必须）</td>
+<td>参数</td>
+<td><a href="#TeamMemberCreateModel">TeamMemberCreateModel</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<h4 id="获取团队成员"><a href="#获取团队成员" class="headerlink" title="获取团队成员"></a>获取团队成员</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /teams/&#123;id&#125;/members</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>id</strong>（必须）</td>
+<td>团队ID</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>成功响应</td>
+<td><a href="#getTIMResp200">Response 200</a></td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="getTIMResp200"></a>Response 200</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong></td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong></td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+<tr>
+<td><strong>data</strong></td>
+<td></td>
+<td><a href="#data_members">data</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="data_members"></a>data</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>members</strong>（必须）</td>
+<td>&lt; <a href="#TeamMemberGetModel">TeamMemberGetModel</a> &gt; array</td>
+</tr>
+</tbody>
+</table>
+<h4 id="修改团队成员属性"><a href="#修改团队成员属性" class="headerlink" title="修改团队成员属性"></a>修改团队成员属性</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PUT /teams/&#123;id&#125;/members/&#123;userId&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>id</strong>（必须）</td>
+<td>团队ID</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>userId</strong>（必须）</td>
+<td>用户ID</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>member</strong>（非必须）</td>
+<td>参数</td>
+<td><a href="#TeamMemberUpdateModel">TeamMemberUpdateModel</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<h4 id="删除团队成员"><a href="#删除团队成员" class="headerlink" title="删除团队成员"></a>删除团队成员</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE /teams/&#123;id&#125;/members/&#123;userId&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>id</strong>（必须）</td>
+<td>团队ID</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>userId</strong>（必须）</td>
+<td>用户ID</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<h3 id="无人机"><a href="#无人机" class="headerlink" title="无人机"></a>无人机</h3><p>无人机管理</p>
+<h4 id="通过团队ID获取无人机"><a href="#通过团队ID获取无人机" class="headerlink" title="通过团队ID获取无人机"></a>通过团队ID获取无人机</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /drones</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>teamId</strong>（非必须）</td>
+<td>团队ID</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>成功响应</td>
+<td><a href="#droneResp200">Response 200</a></td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="droneResp200"></a>Response 200</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong></td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong></td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+<tr>
+<td><strong>data</strong></td>
+<td></td>
+<td><a href="#data_get_drones">data</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="data_get_drones"></a>data</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>drones</strong>（必须）</td>
+<td>&lt; <a href="#DroneGetModel">DroneGetModel</a> &gt; array</td>
+</tr>
+</tbody>
+</table>
+<h4 id="修改无人机信息"><a href="#修改无人机信息" class="headerlink" title="修改无人机信息"></a>修改无人机信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PUT /drones/&#123;sn&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>sn</strong>（必选）</td>
+<td>无人机序列号</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>Body</strong></td>
+<td><strong>drone</strong>（非必须）</td>
+<td>要创建的无人机</td>
+<td><a href="#DroneEditModel">DroneEditModel</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<h4 id="删除无人机信息"><a href="#删除无人机信息" class="headerlink" title="删除无人机信息"></a>删除无人机信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE /drones/&#123;sn&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>sn</strong>（必选）</td>
+<td>无人机序列号</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<h4 id="无人机绑定团队"><a href="#无人机绑定团队" class="headerlink" title="无人机绑定团队"></a>无人机绑定团队</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST /teams/&#123;id&#125;/drones</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>teamId</strong>（非必须）</td>
+<td></td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>Body</strong></td>
+<td><strong>member</strong>（非必须）</td>
+<td>参数</td>
+<td><a href="#DroneBindPara">DroneBindPara</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<h4 id="无人机从团队解除绑定"><a href="#无人机从团队解除绑定" class="headerlink" title="无人机从团队解除绑定"></a>无人机从团队解除绑定</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE /teams/&#123;id&#125;/drones/&#123;sn&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>sn</strong>（必须）</td>
+<td>无人机序列号</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>teamId</strong>（非必须）</td>
+<td></td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<h3 id="飞行记录"><a href="#飞行记录" class="headerlink" title="飞行记录"></a>飞行记录</h3><h4 id="通过团队ID-用户ID-无人机序列号-获取飞行记录"><a href="#通过团队ID-用户ID-无人机序列号-获取飞行记录" class="headerlink" title="通过团队ID,用户ID,无人机序列号 获取飞行记录"></a>通过团队ID,用户ID,无人机序列号 获取飞行记录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /flightrecords</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+<th><strong>默认</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>endTs</strong>（非必须）</td>
+<td>以Unix毫秒为单位的结束时间。默认为当前时间</td>
+<td>integer</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>limit</strong>（非必须）</td>
+<td>返回数目</td>
+<td>integer</td>
+<td>20</td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>offset</strong>（非必须）</td>
+<td>偏移量</td>
+<td>integer</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>sn</strong>（非必须）</td>
+<td>无人机筛选条件</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>startTs</strong>（非必须）</td>
+<td>以Unix毫秒为单位的开始时间。默认提前1天</td>
+<td>integer</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>teamId</strong>（非必须）</td>
+<td>团队筛选条件</td>
+<td>integer</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>userId</strong>（非必须）</td>
+<td>用户筛选条件</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>飞行记录列表</td>
+<td><a href="#getflightrecordsResp200">Response 200</a></td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="getflightrecordsResp200"></a>Response 200</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong></td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong></td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+<tr>
+<td><strong>data</strong></td>
+<td></td>
+<td><a href="#data_flightrecords">data</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="getflightrecordsResp200"></a>data</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>flightRecords</strong>（非必须）</td>
+<td>&lt; <a href="#FlightGetModel">FlightGetModel</a> &gt; array</td>
+</tr>
+<tr>
+<td><strong>drones</strong>（非必须）</td>
+<td><a href="#PaginationModel">PaginationModel</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="按记录ID获取详细记录"><a href="#按记录ID获取详细记录" class="headerlink" title="按记录ID获取详细记录"></a>按记录ID获取详细记录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /flightrecords/&#123;id&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>id</strong>（必须）</td>
+<td>飞行记录ID</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>响应成功</td>
+<td><a href="#getflightrecordsidResp200">Response 200</a></td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="getflightrecordsidResp200"></a>Response 200</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong></td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong></td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+<tr>
+<td><strong>data</strong></td>
+<td></td>
+<td><a href="#data_flightrecords_id">data</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="data_flightrecords_id"></a>data</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>summary</strong>（非必须）</td>
+<td><a href="#FlightSummaryModel">FlightSummaryModel</a></td>
+</tr>
+<tr>
+<td><strong>recordPoints</strong>（非必须）</td>
+<td>&lt; <a href="#FightRecordPointModel">FightRecordPointModel</a> &gt; array</td>
+</tr>
+</tbody>
+</table>
+<h4 id="删除飞行记录"><a href="#删除飞行记录" class="headerlink" title="删除飞行记录"></a>删除飞行记录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE /flightrecords/&#123;id&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>id</strong>（必须）</td>
+<td>飞行记录号</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<h3 id="飞行统计"><a href="#飞行统计" class="headerlink" title="飞行统计"></a>飞行统计</h3><h4 id="获取飞行统计，按照团队ID和飞行ID分组"><a href="#获取飞行统计，按照团队ID和飞行ID分组" class="headerlink" title="获取飞行统计，按照团队ID和飞行ID分组"></a>获取飞行统计，按照团队ID和飞行ID分组</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /statistics/flightrecords</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>droneSn</strong>（可选）</td>
+<td>无人机筛选条件</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>endTs</strong>（可选）</td>
+<td>以Unix毫秒为单位的结束时间。默认为当前时间</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>startTs</strong>（可选）</td>
+<td>以Unix毫秒为单位的开始时间。默认提前1天</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>teamId</strong>（可选）</td>
+<td>团队筛选条件</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>userId</strong>（可选）</td>
+<td>用户筛选条件</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>响应成功</td>
+<td><a href="#sfrResp200">Response 200</a></td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="sfrResp200"></a>Response 200</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong></td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong></td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+<tr>
+<td><strong>data</strong></td>
+<td></td>
+<td><a href="#data_statistics_flightrecords">data</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="data_statistics_flightrecords"></a>data</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>statistics</strong>（必须）</td>
+<td><a href="#FightStatisticsModel">FightStatisticsModel</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="直播流"><a href="#直播流" class="headerlink" title="直播流"></a>直播流</h3><h4 id="获取直播流状态"><a href="#获取直播流状态" class="headerlink" title="获取直播流状态"></a>获取直播流状态</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /drones/&#123;sn&#125;/stream</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>sn</strong>（必选）</td>
+<td>无人机序列号</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>响应成功</td>
+<td><a href="#gdssRes200">Response 200</a></td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="gdssRes200"></a>Response 200</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong></td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong></td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+<tr>
+<td><strong>data</strong></td>
+<td></td>
+<td><a href="#data_drones_stream">data</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="data_drones_stream"></a>data</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>status</strong>（必须）</td>
+<td>直播流状态</td>
+<td>boolean</td>
+</tr>
+</tbody>
+</table>
+<h4 id="获取播放直播流的地址"><a href="#获取播放直播流的地址" class="headerlink" title="获取播放直播流的地址"></a>获取播放直播流的地址</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /drones/&#123;sn&#125;/stream/play</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>sn</strong>（必选）</td>
+<td>无人机序列号</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>响应成功</td>
+<td><a href="#getdsspResp200">Response 200</a></td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="getdsspResp200"></a>Response 200</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong></td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong></td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+<tr>
+<td><strong>data</strong></td>
+<td></td>
+<td><a href="#data_stream_play">data</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="data_stream_play"></a>data</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>temp</strong>（必须）</td>
+<td><a href="#dronesrtmp">rtmp</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="dronesrtmp"></a>rtmp</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>playUrl</strong>（非必须）</td>
+<td>播放流URL <strong>如：</strong><code>&quot;rtmp://10.61.91.204/fhstream/SIM-0005?type=play&amp;wowzatokenhash=e60c14af7c9b2a8c56f7734823d43f5acb1830c3&amp;wowzatokenendtime=1536071501&quot;</code></td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<h4 id="获取用于发布实时流的地址"><a href="#获取用于发布实时流的地址" class="headerlink" title="获取用于发布实时流的地址"></a>获取用于发布实时流的地址</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /drones/&#123;sn&#125;/stream/publish</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>sn</strong>（必选）</td>
+<td>无人机序列号</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>响应成功</td>
+<td><a href="#dsspublishResp200">Response 200</a></td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="dsspublishResp200"></a>Response 200</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong></td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong></td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+<tr>
+<td><strong>data</strong></td>
+<td></td>
+<td><a href="#data_stream_publish">data</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="data_stream_publish"></a>data</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>temp</strong>（必须）</td>
+<td><a href="#dssprtmp">rtmp</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="dssprtmp"></a>rtmp</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>playUrl</strong>（非必须）</td>
+<td>播放流URL <strong>如：</strong><code>&quot;rtmp://10.61.91.204/fh/SIM-0005?type=publish&amp;wowzatokenhash=2d5fc4145667401263afca90800b5428b986d626&amp;wowzatokenendtime=1536071478&quot;</code></td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<h4 id="获取所有带有直播流的无人机"><a href="#获取所有带有直播流的无人机" class="headerlink" title="获取所有带有直播流的无人机"></a>获取所有带有直播流的无人机</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /streams</span><br></pre></td></tr></table></figure>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>响应成功</td>
+<td><a href="#streamResp200">Response 200</a></td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="streamResp200"></a>Response 200</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong></td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong></td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+<tr>
+<td><strong>data</strong></td>
+<td></td>
+<td><a href="#data_streams">data</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="data_streams"></a>data</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>streams</strong>（必须）</td>
+<td>&lt; <a href="#DroneGetModel">DroneGetModel</a> &gt; array</td>
+</tr>
+</tbody>
+</table>
+<h3 id="实时报告"><a href="#实时报告" class="headerlink" title="实时报告"></a>实时报告</h3><h4 id="获取在线无人机"><a href="#获取在线无人机" class="headerlink" title="获取在线无人机"></a>获取在线无人机</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /online/drones</span><br></pre></td></tr></table></figure>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>响应成功</td>
+<td><a href="#odResp200">Response 200</a></td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="odResp200"></a>Response 200</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong></td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong></td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+<tr>
+<td><strong>data</strong></td>
+<td></td>
+<td><a href="#data_online_drones">data</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="data_online_drones"></a>data</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>drones</strong>（必须）</td>
+<td>&lt; <a href="#DroneOnlineModel">DroneOnlineModel</a> &gt; array</td>
+</tr>
+</tbody>
+</table>
+<h4 id="飞行事件报告，飞行起飞后定期报告"><a href="#飞行事件报告，飞行起飞后定期报告" class="headerlink" title="飞行事件报告，飞行起飞后定期报告"></a>飞行事件报告，飞行起飞后定期报告</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST /online/flightevents</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Body</strong></td>
+<td><strong>body</strong>（必须）</td>
+<td>在线状态</td>
+<td><a href="#ofbody">body</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="ofbody"></a>body</strong></p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>recordList</strong></td>
+<td>&lt; <a href="#FlyReport">FlyReport</a> &gt; array</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Produces</strong></p>
+<ul>
+<li>application/json</li>
+</ul>
+<h3 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h3><p>对象存储</p>
+<h4 id="上传对象"><a href="#上传对象" class="headerlink" title="上传对象"></a>上传对象</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST /objects</span><br></pre></td></tr></table></figure>
+<p><strong>Description</strong></p>
+<p>请求的Content-type 取决于上传的内容,并且将保存成对象的元数据</p>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>category</strong>（非必须）</td>
+<td>“支持的类别：<code>flightpic</code>、<code>flightvideo</code>、<code>missionpic</code>、<code>flightrecord</code>”</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>contentType</strong>（非必须）</td>
+<td>MIME 内容类型的对象</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>createTime</strong>（非必须）</td>
+<td>创建时间，以Unix毫秒为单位</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>filename</strong>（非必须）</td>
+<td></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>recordId</strong>（非必须）</td>
+<td>与对象关联的记录ID</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>teamId</strong>（非必须）</td>
+<td></td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>body</strong>（非必须）</td>
+<td>二进制对象</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP</strong> <strong>编码</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>响应成功</td>
+<td><a href="#objectsResp200">Response 200</a></td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="objectsResp200"></a>Response 200</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong></td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong></td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+<tr>
+<td><strong>data</strong></td>
+<td></td>
+<td><a href="#data_online_drones">data</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="data_online_drones"></a>data</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>path</strong>（必须）</td>
+<td>下载路径 如：<code>&quot;/objects/missionPic/31243-2314-2341-4234&quot;</code></td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Consumes</strong></p>
+<ul>
+<li>application/binary</li>
+</ul>
+<h4 id="获取录像-图片的文件列表"><a href="#获取录像-图片的文件列表" class="headerlink" title="获取录像,图片的文件列表"></a>获取录像,图片的文件列表</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /objects</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+<th><strong>默认</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>account</strong>（非必须）</td>
+<td></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>category</strong>（必须）</td>
+<td>文件的类别：<code>flightpic</code>、<code>flightvideo</code>、<code>flightMedia</code></td>
+<td><strong>string</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>endTs</strong>（非必须）</td>
+<td>以Unix毫秒为单位的结束时间。默认为当前时间</td>
+<td>integer</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>limit</strong>（非必须）</td>
+<td>返回条数</td>
+<td>integer</td>
+<td>20</td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>offset</strong>（非必须）</td>
+<td>偏移量</td>
+<td>string</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>sortDirection</strong>（非必须）</td>
+<td>排序方向、升序或降序</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>sortField</strong>（非必须）</td>
+<td>排序字段</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>startTs</strong>（非必须）</td>
+<td>以Unix毫秒为单位的开始时间。默认提前1天</td>
+<td>integer</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td><strong>teamId</strong>（必须）</td>
+<td>二进制对象</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>文件列表</td>
+<td><a href="#postoResp200">Response 200</a></td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="postoResp200"></a>Response 200</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong></td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong></td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+<tr>
+<td><strong>data</strong></td>
+<td></td>
+<td><a href="#pdata_objects">data</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="pdata_objects"></a>data</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>files</strong>（非必须）</td>
+<td>&lt; <a href="#FileListModel">FileListModel</a> &gt; array</td>
+</tr>
+<tr>
+<td><strong>pagination</strong>（非必须）</td>
+<td><a href="#PaginationModel">PaginationModel</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="下载对象"><a href="#下载对象" class="headerlink" title="下载对象"></a>下载对象</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /objects/&#123;category&#125;/&#123;id&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Description</strong></p>
+<p>只在上传的时候指定 <code>Content-Type</code></p>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>category</strong>（必选）</td>
+<td></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>id</strong>（必选）</td>
+<td>对象ID</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<h4 id="删除对象"><a href="#删除对象" class="headerlink" title="删除对象"></a>删除对象</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE /objects/&#123;category&#125;/&#123;id&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Description</strong></p>
+<p>只在上传的时候指定 <code>Content-Type</code></p>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>category</strong>（必选）</td>
+<td></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>id</strong>（必选）</td>
+<td>对象ID</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<h4 id="修改元数据对象"><a href="#修改元数据对象" class="headerlink" title="修改元数据对象"></a>修改元数据对象</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PUT /objects/&#123;category&#125;/&#123;id&#125;/metadata</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>category</strong>（必选）</td>
+<td></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>id</strong>（必选）</td>
+<td>对象ID</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>Body</strong></td>
+<td><strong>body</strong>（非必选）</td>
+<td>对象ID</td>
+<td><a href="#ocimbody">body</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="ocimbody"></a>body</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>filename</strong>（必须）</td>
+<td>对象的文件名，<strong>如：</strong><code>shenzhen_001.jpg</code></td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>HTTP编码</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<h3 id="远程控制"><a href="#远程控制" class="headerlink" title="远程控制"></a>远程控制</h3><p>远程控制功能将命令从服务器发送到客户端，应仅与PILOT PE一起使用。</p>
+<h4 id="开始直播流"><a href="#开始直播流" class="headerlink" title="开始直播流"></a>开始直播流</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PUT /remote/&#123;sn&#125;/livestreaming/start</span><br></pre></td></tr></table></figure>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path</strong></td>
+<td><strong>sn</strong>（必须）</td>
+<td>无人机序列号</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Consumes</strong></p>
+<ul>
+<li>multipart/mixed</li>
+</ul>
+<h2 id="Definitions（定义）"><a href="#Definitions（定义）" class="headerlink" title="Definitions（定义）"></a>Definitions（定义）</h2><h3 id="DroneBindPara"><a href="#DroneBindPara" class="headerlink" title="DroneBindPara"></a><a name="DroneBindPara"></a>DroneBindPara</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>droneType</strong>（必须）</td>
+<td>无人机类型，<strong>如：</strong><code>M200</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>sn</strong>（必须）</td>
+<td>无人机序列号 , <strong>如：</strong> <code>DRONE_SN_1</code></td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<h3 id="DroneEditModel"><a href="#DroneEditModel" class="headerlink" title="DroneEditModel"></a><a name="DroneEditModel"></a>DroneEditModel</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>name</strong>（必须）</td>
+<td>无人机名称 ，<strong>如：</strong><code>Drone No.1</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>teamId</strong>（必须）</td>
+<td>无人机所属团队 <strong>如：</strong>1</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="DroneGetModel"><a href="#DroneGetModel" class="headerlink" title="DroneGetModel"></a><a name="DroneGetModel"></a>DroneGetModel</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>sn</strong>（必须）</td>
+<td>无人机序列号 , <strong>如：</strong> <code>DRONE_SN_1</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>name</strong>（必须）</td>
+<td>无人机名称 ，<strong>如：</strong><code>Drone No.1</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>droneType</strong>（必须）</td>
+<td>无人机类型，<strong>如：</strong><code>M200</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>teamId</strong>（必须）</td>
+<td>无人机所属团队 <strong>如：</strong>1</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="DroneOnlineModel"><a href="#DroneOnlineModel" class="headerlink" title="DroneOnlineModel"></a><a name="DroneOnlineModel"></a>DroneOnlineModel</h3><p>多态性：组成</p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>sn</strong>（必须）</td>
+<td>无人机序列号 , <strong>如：</strong> <code>DRONE_SN_1</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>name</strong>（必须）</td>
+<td>无人机名称 ，<strong>如：</strong><code>Drone No.1</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>droneType</strong>（必须）</td>
+<td>无人机类型，<strong>如：</strong><code>M200</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>teamId</strong>（必须）</td>
+<td>无人机所属团队<strong>如：</strong>1</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>date</strong>（必须）</td>
+<td>报告时间，以Unix毫秒为单位</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>lat</strong>（必须）</td>
+<td></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>lng</strong>（必须）</td>
+<td></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>altitude</strong>（必须）</td>
+<td></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>speed</strong>（必须）</td>
+<td></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>yaw</strong>（必须）</td>
+<td></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>batteryLevel</strong>（必须）</td>
+<td></td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>homeLat</strong>（非必须）</td>
+<td></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>homeLng</strong>（非必须）</td>
+<td></td>
+<td>number (float)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="FightRecordPointModel"><a href="#FightRecordPointModel" class="headerlink" title="FightRecordPointModel"></a><a name="FightRecordPointModel"></a>FightRecordPointModel</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>date</strong>（必须）</td>
+<td>报告时间，以Unix毫秒为单位</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>lat</strong>（必须）</td>
+<td></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>lng</strong>（必须）</td>
+<td></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>altitude</strong>（必须）</td>
+<td></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>speed</strong>（必须）</td>
+<td></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>yaw</strong>（必须）</td>
+<td></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>batteryLevel</strong>（必须）</td>
+<td></td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="FightStatisticsModel"><a href="#FightStatisticsModel" class="headerlink" title="FightStatisticsModel"></a><a name="FightStatisticsModel"></a>FightStatisticsModel</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>totalDuration</strong>（必须）</td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>avgDuration</strong>（必须）</td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>durationDistribution</strong>（非必须）</td>
+<td><a href="#durationDistribution">durationDistribution</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong><a name="durationDistribution"></a>durationDistribution</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0-5</strong>（非必须）</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>5-10</strong>（非必须）</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>10-15</strong>（非必须）</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>20+</strong> （非必须）</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="FileListModel"><a href="#FileListModel" class="headerlink" title="FileListModel"></a><a name="FileListModel"></a>FileListModel</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>name</strong>（非必须）</td>
+<td>文件名称</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>path</strong>（非必须）</td>
+<td>文件路径 <strong>如：</strong><code>/objects/flightPic/31243-2314-2341-4234</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>path</strong>（非必须）</td>
+<td>文件路径 <strong>如：</strong><code>/objects/flightPic/31243-2314-2341-4234/metadata</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>metadataPath</strong>（非必须）</td>
+<td>操作文件的路径，如更改文件名</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>category</strong>（非必须）</td>
+<td>对象类型<strong>如：</strong><code>flightPic</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>size</strong>（非必须）</td>
+<td>文件大小</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>date</strong>（非必须）</td>
+<td>文件修改时间，单位为Unix毫秒, <strong>如：</strong>1536064281000</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>thumbnail</strong>（非必须）</td>
+<td>base64编码的文件缩略图</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>contentType</strong>（非必须）</td>
+<td>无人机所属团队</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<h3 id="FlightGetModel"><a href="#FlightGetModel" class="headerlink" title="FlightGetModel"></a><a name="FlightGetModel"></a>FlightGetModel</h3><p>多态性：组成</p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>id</strong>（必须）</td>
+<td>飞行记录ID</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>md5</strong>（非必须）</td>
+<td>飞行结果的MD5签名</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>fileName</strong>（非必须）</td>
+<td>飞行文件名</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>fileSize</strong>（非必须）</td>
+<td>文件大小（字节）</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>isFavourite</strong>（非必须）</td>
+<td>最喜欢标识</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>path</strong>（非必须）</td>
+<td>文件下载路径</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>account</strong>（非必须）</td>
+<td>用户账户</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>teamId</strong>（非必须）</td>
+<td>团队ID</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>sn</strong>（非必须）</td>
+<td>无人机序列号</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>droneType</strong>（非必须）</td>
+<td>无人机型号</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>duration</strong>（非必须）</td>
+<td>单位：秒</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>distance</strong>（非必须）</td>
+<td>飞行距离，单位：</td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>maxHeight</strong>（非必须）</td>
+<td>最大飞行高度，单位：</td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>takeoffLongitude</strong>（非必须）</td>
+<td>起飞经度，<strong>如：</strong><code>102.20215</code></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>takeoffLatitude</strong>（非必须）</td>
+<td>起飞纬度，<strong>如：</strong><code>29.980776</code></td>
+<td>number (float)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="FlightSummaryModel"><a href="#FlightSummaryModel" class="headerlink" title="FlightSummaryModel"></a><a name="FlightSummaryModel"></a>FlightSummaryModel</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>account</strong>（非必须）</td>
+<td>用户账户</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>teamId</strong>（非必须）</td>
+<td>团队ID</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>sn</strong>（非必须）</td>
+<td>无人机序列号</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>droneType</strong>（非必须）</td>
+<td>无人机型号</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>duration</strong>（非必须）</td>
+<td>单位：秒</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>distance</strong>（非必须）</td>
+<td>飞行距离，单位：</td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>maxHeight</strong>（非必须）</td>
+<td>最大飞行高度</td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>takeoffLongitude</strong>（非必须）</td>
+<td>起飞经度，<strong>如：</strong><code>102.20215</code></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>takeoffLatitude</strong>（非必须）</td>
+<td>起飞纬度，<strong>如：</strong><code>29.980776</code></td>
+<td>number (float)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="FlyReport"><a href="#FlyReport" class="headerlink" title="FlyReport"></a><a name="FlyReport"></a>FlyReport</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>date</strong>（必须）</td>
+<td>报告时间，以Unix毫秒为单位</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>droneId</strong>（非必须）</td>
+<td>无人机序列号</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>latitude</strong>（必须）</td>
+<td></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>longitude</strong>（必须）</td>
+<td></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>altitude</strong>（非必须）</td>
+<td>实际上，这是和<code>HOME</code>相比的飞行高度</td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>yaw</strong>（必须）</td>
+<td></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>speed</strong>（必须）</td>
+<td></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>speedH</strong>（非必须）</td>
+<td>水平速度</td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>speedV</strong>（非必须）</td>
+<td>垂直速度</td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>flightMode</strong>（非必须）</td>
+<td>飞行模式，显示在Pilot APP的topbar</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>waypointMode</strong>（非必须）</td>
+<td>航点模式，0-暂停 1-执行（默认）</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>isAllowLive</strong>（非必须）</td>
+<td></td>
+<td>boolean</td>
+</tr>
+<tr>
+<td><strong>batteryLevel</strong>（非必须）</td>
+<td></td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>rcSignal</strong>（非必须）</td>
+<td></td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>homeLatitude</strong>（非必须）</td>
+<td></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>homeLongitude</strong>（非必须）</td>
+<td></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>gimbal</strong>（非必须）</td>
+<td></td>
+<td>&lt; <a href="#FlyReportGimbalModel">FlyReportGimbalModel</a>&gt; array</td>
+</tr>
+<tr>
+<td><strong>camera</strong>（非必须）</td>
+<td></td>
+<td>&lt; <a href="#FlyReportCameraModel">FlyReportCameraModel</a>&gt; array</td>
+</tr>
+<tr>
+<td><strong>accessoryModel</strong>（非必须）</td>
+<td></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>recordId</strong>（必须）</td>
+<td></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>taskId</strong>（非必须）</td>
+<td></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>missionId</strong>（非必须）</td>
+<td></td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<h3 id="FlyReportAccessoryModel"><a href="#FlyReportAccessoryModel" class="headerlink" title="FlyReportAccessoryModel"></a><a name="FlyReportAccessoryModel"></a>FlyReportAccessoryModel</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>model</strong>（非必须）</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<h3 id="FlyReportCameraModel"><a href="#FlyReportCameraModel" class="headerlink" title="FlyReportCameraModel"></a><a name="FlyReportCameraModel"></a>FlyReportCameraModel</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>id</strong>（非必须）</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>status</strong>（非必须）</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>model</strong>（非必须）</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<h3 id="FlyReportGimbalModel"><a href="#FlyReportGimbalModel" class="headerlink" title="FlyReportGimbalModel"></a><a name="FlyReportGimbalModel"></a>FlyReportGimbalModel</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>id</strong>（非必须）</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>yaw</strong>（非必须）</td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>pitch</strong>（非必须）</td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>roll</strong>（非必须）</td>
+<td>number (float)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="InputErrorResponse"><a href="#InputErrorResponse" class="headerlink" title="InputErrorResponse"></a><a name="InputErrorResponse"></a>InputErrorResponse</h3><p>客户端的错误信息<br>多态性：组成</p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong>（必须）</td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong>（必须）</td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+<tr>
+<td><strong>data</strong>（非必须）</td>
+<td></td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<h3 id="MissionBriefModel"><a href="#MissionBriefModel" class="headerlink" title="MissionBriefModel"></a><a name="MissionBriefModel"></a>MissionBriefModel</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>name</strong>（必须）</td>
+<td>任务名称，<strong>如：</strong><code>mission1</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>teamId</strong>（非必须）</td>
+<td>任务所属团队，<strong>如：</strong>1</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>type</strong>（非必须）</td>
+<td>任务类型，0: waypoints（航点） 1: survey（测量），<strong>如：</strong>1</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>version</strong>（非必须）</td>
+<td>version，<strong>如：</strong>1</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>coverPic</strong>（非必须）</td>
+<td>绘图路径</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>latitude</strong>（必须）</td>
+<td>纬度，<strong>如: </strong><code>29.980776</code></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>longitude</strong>（必须）</td>
+<td>纬度，<strong>如:</strong> <code>102.20215</code></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>locationDesc</strong>（非必须）</td>
+<td>任务地点，<strong>如: </strong><code>Nanshan, Shenzhen, China</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>distance</strong>（必须）</td>
+<td>任务距离（单位：m），<strong>如: </strong><code>328.1</code></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>duration</strong>（必须）</td>
+<td>预期任务持续时间（单位：秒），<strong>如:</strong> <code>512</code></td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="MissionCreateModel"><a href="#MissionCreateModel" class="headerlink" title="MissionCreateModel"></a><a name="MissionCreateModel"></a>MissionCreateModel</h3><p>多态性：组成</p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>name</strong>（必须）</td>
+<td>任务名称，<strong>如：</strong><code>mission1</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>teamId</strong>（非必须）</td>
+<td>任务所属团队，<strong>如：</strong>1</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>type</strong>（非必须）</td>
+<td>任务类型，0: waypoints（航点） 1: survey（测量），<strong>如：</strong>1</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>version</strong>（非必须）</td>
+<td>version，<strong>如：</strong>1</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>coverPic</strong>（非必须）</td>
+<td>绘图路径</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>latitude</strong>（必须）</td>
+<td>纬度，<strong>如: </strong><code>29.980776</code></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>longitude</strong>（必须）</td>
+<td>纬度，<strong>如:</strong> <code>102.20215</code></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>locationDesc</strong>（非必须）</td>
+<td>任务地点，<strong>如: </strong><code>Nanshan, Shenzhen, China</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>distance</strong>（必须）</td>
+<td>任务距离（单位：m），<strong>如: </strong><code>328.1</code></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>duration</strong>（必须）</td>
+<td>预期任务持续时间（单位：秒），<strong>如:</strong> <code>512</code></td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>flyParam</strong>（必须）</td>
+<td><code>flyparam</code>数据结构取决于任务<code>类型</code>，具体在link上指定：[飞行任务数据结构]<strong>如：</strong><code>{&quot;gotoFirstPointMode&quot; : 0,&quot;actionOnFinish&quot; : 1,&quot;actionOnRcLost&quot; : 0,&quot;gimbalPatchMode&quot; : 0,&quot;flightPathMode&quot; : 0,&quot;autoFlightSpeed&quot; : 12.1,&quot;maxFlightSpeed&quot; : 10,&quot;headingMode&quot; : 0,&quot;interestPointLat&quot; : 29.980911,&quot;interestPointLng&quot; : 102.202581,&quot;repeatTimes&quot; : 1,&quot;waypoints&quot; : [ {&quot;latitude&quot; : 29.98091092019941,&quot;longitude&quot; : 102.2025812475324,&quot;altitude&quot; : 345.69214,&quot;heading&quot; : 20,&quot;cornerRadius&quot; : 1.2,&quot;actionTimeLimit&quot; : 20,&quot;cameraAction&quot; : 1,&quot;cameraActionParam&quot; : 1000,&quot;hasAction&quot; : 1,&quot;hasSpeed&quot; : 1,&quot;speed&quot; : 13.4,&quot;gimbalPitch&quot; : -10,&quot;turnMode&quot; : 1,&quot;actions&quot; : [ {&quot;type&quot; : 1,&quot;param&quot; : 20} ]} ]}</code></td>
+<td>object</td>
+</tr>
+</tbody>
+</table>
+<h3 id="MissionGetBriefModel"><a href="#MissionGetBriefModel" class="headerlink" title="MissionGetBriefModel"></a><a name="MissionGetBriefModel"></a>MissionGetBriefModel</h3><p>多态性：组成</p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>id</strong>（必须）</td>
+<td><strong>如：</strong><code>&quot;mission-id-1&quot;</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>createTime</strong>（必须）</td>
+<td><strong>如：</strong><code>&quot;1.531813501928E12&quot;</code></td>
+<td>number</td>
+</tr>
+<tr>
+<td><strong>createBy</strong>（非必须）</td>
+<td><strong>如：</strong><code>&quot;zach&quot;</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>updateTime</strong>（必须）</td>
+<td><strong>如：</strong><code>1.531813501928E12</code></td>
+<td>number</td>
+</tr>
+<tr>
+<td><strong>updateBy</strong>（非必须）</td>
+<td><strong>如：</strong><code>&quot;dylan&quot;</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>name</strong>（必须）</td>
+<td>任务名称，<strong>如：</strong><code>&quot;mission1&quot;</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>teamId</strong>（非必须）</td>
+<td>任务所属团队，<strong>如：</strong>1</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>type</strong>（非必须）</td>
+<td>任务类型，0: waypoints（航点） 1: survey（测量）</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>version</strong>（非必须）</td>
+<td>version，<strong>如：</strong>1</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>coverPic</strong>（非必须）</td>
+<td>绘图路径</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>latitude</strong>（必须）</td>
+<td>纬度，<strong>如: </strong><code>29.980776</code></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>longitude</strong>（必须）</td>
+<td>纬度，<strong>如:</strong> <code>102.20215</code></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>locationDesc</strong>（非必须）</td>
+<td>任务地点，<strong>如:</strong> <code>Nanshan, Shenzhen, China</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>distance</strong>（必须）</td>
+<td>任务距离（单位：m），<strong>如:</strong> <code>328.1</code></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>duration</strong>（必须）</td>
+<td>预期任务持续时间（单位：秒），<strong>如:</strong> <code>512</code></td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="MissionGetDetailModel"><a href="#MissionGetDetailModel" class="headerlink" title="MissionGetDetailModel"></a><a name="MissionGetDetailModel"></a>MissionGetDetailModel</h3><p>多态性：组成</p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>id</strong>（必须）</td>
+<td><strong>如：</strong><code>&quot;mission-id-1&quot;</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>createTime</strong>（必须）</td>
+<td><strong>如：</strong><code>&quot;1.531813501928E12&quot;</code></td>
+<td>number</td>
+</tr>
+<tr>
+<td><strong>createBy</strong>（非必须）</td>
+<td><strong>如：</strong><code>&quot;zach&quot;</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>updateTime</strong>（必须）</td>
+<td><strong>如：</strong><code>1.531813501928E12</code></td>
+<td>number</td>
+</tr>
+<tr>
+<td><strong>updateBy</strong>（非必须）</td>
+<td><strong>如：</strong><code>&quot;dylan&quot;</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>name</strong>（必须）</td>
+<td>任务名称，<strong>如：</strong><code>&quot;mission1&quot;</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>teamId</strong>（非必须）</td>
+<td>任务所属团队，<strong>如：</strong>1</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>type</strong>（非必须）</td>
+<td>任务类型，0: waypoints（航点） 1: survey（测量）</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>version</strong>（非必须）</td>
+<td>version，<strong>如：</strong>1</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>coverPic</strong>（非必须）</td>
+<td>绘图路径</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>latitude</strong>（必须）</td>
+<td>纬度，<strong>如:</strong> <code>29.980776</code></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>longitude</strong>（必须）</td>
+<td>纬度，<strong>如:</strong> <code>102.20215</code></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>locationDesc</strong>（非必须）</td>
+<td>任务地点，<strong>如:</strong> <code>Nanshan, Shenzhen, China</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>distance</strong>（必须）</td>
+<td>任务距离（单位：m），<strong>如:</strong> <code>328.1</code></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>duration</strong>（必须）</td>
+<td>预期任务持续时间（单位：秒），<strong>如:</strong> <code>512</code></td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>flyParam</strong>（必须）</td>
+<td><code>flyparam</code>数据结构取决于任务<code>类型</code>，具体在link上指定：[飞行任务数据结构]<strong>如：</strong><code>{&quot;gotoFirstPointMode&quot; : 0,&quot;actionOnFinish&quot; : 1,&quot;actionOnRcLost&quot; : 0,&quot;gimbalPatchMode&quot; : 0,&quot;flightPathMode&quot; : 0,&quot;autoFlightSpeed&quot; : 12.1,&quot;maxFlightSpeed&quot; : 10,&quot;headingMode&quot; : 0,&quot;interestPointLat&quot; : 29.980911,&quot;interestPointLng&quot; : 102.202581,&quot;repeatTimes&quot; : 1,&quot;waypoints&quot; : [ {&quot;latitude&quot; : 29.98091092019941,&quot;longitude&quot; : 102.2025812475324,&quot;altitude&quot; : 345.69214,&quot;heading&quot; : 20,&quot;cornerRadius&quot; : 1.2,&quot;actionTimeLimit&quot; : 20,&quot;cameraAction&quot; : 1,&quot;cameraActionParam&quot; : 1000,&quot;hasAction&quot; : 1,&quot;hasSpeed&quot; : 1,&quot;speed&quot; : 13.4,&quot;gimbalPitch&quot; : -10,&quot;turnMode&quot; : 1,&quot;actions&quot; : [ {&quot;type&quot; : 1,&quot;param&quot; : 20} ]} ]}</code></td>
+<td>object</td>
+</tr>
+</tbody>
+</table>
+<h3 id="MissionServerGenModel"><a href="#MissionServerGenModel" class="headerlink" title="MissionServerGenModel"></a><a name="MissionServerGenModel"></a>MissionServerGenModel</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>id</strong>（必须）</td>
+<td><strong>如：</strong><code>&quot;mission-id-1&quot;</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>createTime</strong>（必须）</td>
+<td><strong>如：</strong><code>&quot;1.531813501928E12&quot;</code></td>
+<td>number</td>
+</tr>
+<tr>
+<td><strong>createBy</strong>（非必须）</td>
+<td><strong>如：</strong><code>&quot;zach&quot;</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>updateTime</strong>（必须）</td>
+<td><strong>如：</strong><code>1.531813501928E12</code></td>
+<td>number</td>
+</tr>
+<tr>
+<td><strong>updateBy</strong>（非必须）</td>
+<td><strong>如：</strong><code>&quot;dylan&quot;</code></td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<h3 id="OnlineReport"><a href="#OnlineReport" class="headerlink" title="OnlineReport"></a><a name="OnlineReport"></a>OnlineReport</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>date</strong>（非必须）</td>
+<td>报告时间，以Unix毫秒为单位</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>sn</strong>（必须）</td>
+<td>无人机序列号</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>latitude</strong>（必须）</td>
+<td></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>longitude</strong>（必须）</td>
+<td></td>
+<td>number (float)</td>
+</tr>
+<tr>
+<td><strong>height</strong>（必须）</td>
+<td></td>
+<td>number (float)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="PaginationModel"><a href="#PaginationModel" class="headerlink" title="PaginationModel"></a><a name="PaginationModel"></a>PaginationModel</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>pages</strong>（必须）</td>
+<td><strong>如：</strong><code>10</code></td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>total</strong>（必须）</td>
+<td><strong>如：</strong><code>191</code></td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ServerInternalErrorResponse"><a href="#ServerInternalErrorResponse" class="headerlink" title="ServerInternalErrorResponse"></a><a name="ServerInternalErrorResponse"></a>ServerInternalErrorResponse</h3><p>服务端的错误信息<br>多态性：组成</p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong>（必须）</td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong>（必须）</td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+<tr>
+<td><strong>data</strong>（非必须）</td>
+<td></td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<h3 id="StandardResponse"><a href="#StandardResponse" class="headerlink" title="StandardResponse"></a><a name="StandardResponse"></a>StandardResponse</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong>（必须）</td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong>（必须）</td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="SuccessResponse"><a href="#SuccessResponse" class="headerlink" title="SuccessResponse"></a><a name="SuccessResponse"></a>SuccessResponse</h3><p>成功响应<br>多态性：组成</p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>code</strong>（必须）</td>
+<td></td>
+<td>integer (int64)</td>
+</tr>
+<tr>
+<td><strong>message</strong>（必须）</td>
+<td><strong>如：</strong>“”</td>
+<td>string (string)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="TeamCreateModel"><a href="#TeamCreateModel" class="headerlink" title="TeamCreateModel"></a><a name="TeamCreateModel"></a>TeamCreateModel</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>name</strong>（必须）</td>
+<td><strong>如: </strong><code>&quot;Beijing Team&quot;</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>parentId</strong>（必须）</td>
+<td>父团队ID。创建顶级团队时设置为0。<strong>如：</strong>0</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="TeamGetModel"><a href="#TeamGetModel" class="headerlink" title="TeamGetModel"></a><a name="TeamGetModel"></a>TeamGetModel</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+<th>方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>id</strong>（必须）</td>
+<td><strong>如：</strong>2</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>name</strong>（必须）</td>
+<td><strong>如：</strong><code>&quot;Beijing Team&quot;</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>parentId</strong>（非必须）</td>
+<td>父团队ID，<strong>如：</strong>1</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>role</strong>（必须）</td>
+<td>用户在团队中的角色，<strong>如：</strong>1</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>subTeams</strong>（非必须）</td>
+<td>子团队，使用与TeamGetModel相同的结构，<strong>如：</strong><code>[ {&quot;id&quot; : 3,&quot;name&quot; : &quot;ShenZhen&quot;,&quot;role&quot; : 2,&quot;parentId&quot; : 2,&quot;subTeams&quot; : [ {&quot;id&quot; : 4,&quot;name&quot; : &quot;NanShan&quot;,&quot;role&quot; : 2,&quot;parentId&quot; : 3} ]} ]</code></td>
+<td>&lt; object &gt; array</td>
+</tr>
+</tbody>
+</table>
+<h3 id="TeamMate"><a href="#TeamMate" class="headerlink" title="TeamMate"></a><a name="TeamMate"></a>TeamMate</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>name</strong>（非必须）</td>
+<td>用户账户</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>level</strong>（非必须）</td>
+<td>团队等级，<strong>如：</strong>2</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>realName</strong>（非必须）</td>
+<td>用户在团队中的名字</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<h3 id="TeamMemberCreateModel"><a href="#TeamMemberCreateModel" class="headerlink" title="TeamMemberCreateModel"></a><a name="TeamMemberCreateModel"></a>TeamMemberCreateModel</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>userId</strong>（必须）</td>
+<td><strong>如：</strong><code>1</code></td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>role</strong>（必须）</td>
+<td>用户在团队中的角色，<strong>如：</strong>2</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="TeamMemberGetModel"><a href="#TeamMemberGetModel" class="headerlink" title="TeamMemberGetModel"></a><a name="TeamMemberGetModel"></a>TeamMemberGetModel</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>userId</strong>（必须）</td>
+<td><strong>如：</strong><code>1</code></td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>name</strong>（必须）</td>
+<td>用户名称</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>account</strong>（必须）</td>
+<td>用户账户，<strong>如：</strong><code>&quot;USER_1&quot;</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>role</strong>（必须）</td>
+<td>用户在团队中的角色，<strong>如：</strong><code>2</code></td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="TeamMemberUpdateModel"><a href="#TeamMemberUpdateModel" class="headerlink" title="TeamMemberUpdateModel"></a><a name="TeamMemberUpdateModel"></a>TeamMemberUpdateModel</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>role</strong>（必须）</td>
+<td>用户在团队中的角色，<strong>如：</strong><code>2</code></td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="TeamUpdateModel"><a href="#TeamUpdateModel" class="headerlink" title="TeamUpdateModel"></a><a name="TeamUpdateModel"></a>TeamUpdateModel</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>name</strong>（必须）</td>
+<td><strong>如：</strong><code>&quot;Beijing Team&quot;</code></td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<h3 id="UserCreateModel"><a href="#UserCreateModel" class="headerlink" title="UserCreateModel"></a><a name="UserCreateModel"></a>UserCreateModel</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>account</strong>（必须）</td>
+<td><strong>如：</strong><code>&quot;p1@dji.com&quot;</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>password</strong>（必须）</td>
+<td><strong>如：</strong><code>&quot;XXXXXXXXX&quot;</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>name</strong>（必须）</td>
+<td><strong>如：</strong><code>&quot;Pilot Bob&quot;</code></td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<h3 id="UserGetModel"><a href="#UserGetModel" class="headerlink" title="UserGetModel"></a><a name="UserGetModel"></a>UserGetModel</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>userId</strong>（必须）</td>
+<td><strong>如：</strong><code>1</code></td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>account</strong>（必须）</td>
+<td><strong>如：</strong><code>&quot;p1@dji.com&quot;</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>name</strong>（必须）</td>
+<td><strong>如：</strong><code>&quot;Pilot Bob&quot;</code></td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<h3 id="UserUpdateModel"><a href="#UserUpdateModel" class="headerlink" title="UserUpdateModel"></a><a name="UserUpdateModel"></a>UserUpdateModel</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>password</strong>（必须）</td>
+<td><strong>如：</strong><code>&quot;XXXXXXXXX&quot;</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>name</strong>（必须）</td>
+<td><strong>如：</strong><code>&quot;Pilot Steve&quot;</code></td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/文档/" rel="tag"># 文档</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Nginx-Rtmp直播-点播功能.html" rel="next" title="Nginx-Rtmp直播/点播功能">
+                <i class="fa fa-chevron-left"></i> Nginx-Rtmp直播/点播功能
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="YingYi.Ma">
+            
+              <p class="site-author-name" itemprop="name">YingYi.Ma</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yingyi-ma" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yingyi.ma@aliyun.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/xiaoai6126" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yingyi.magic" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview（概览）"><span class="nav-number">1.</span> <span class="nav-text">Overview（概览）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于-REST-API"><span class="nav-number">1.1.</span> <span class="nav-text">关于 REST API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#版本信息"><span class="nav-number">1.2.</span> <span class="nav-text">版本信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#URI-方案"><span class="nav-number">1.3.</span> <span class="nav-text">URI 方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#功能分类"><span class="nav-number">1.4.</span> <span class="nav-text">功能分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Consumes-（content-type）"><span class="nav-number">1.4.1.</span> <span class="nav-text">Consumes （content-type）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何使用"><span class="nav-number">1.5.</span> <span class="nav-text">如何使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Security（安全认证）"><span class="nav-number">2.</span> <span class="nav-text">Security（安全认证）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概览"><span class="nav-number">2.1.</span> <span class="nav-text">概览</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#怎样认证请求（sign-a-request）"><span class="nav-number">2.1.1.</span> <span class="nav-text">怎样认证请求（sign a request）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#一、获取签名秘钥"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">一、获取签名秘钥</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二、计算签名"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">二、计算签名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三、HTTP-request请求中添加签名"><span class="nav-number">2.1.1.3.</span> <span class="nav-text">三、HTTP request请求中添加签名</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码简述"><span class="nav-number">2.1.2.</span> <span class="nav-text">代码简述</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FH-AppId"><span class="nav-number">2.2.</span> <span class="nav-text">FH-AppId</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FH-Token"><span class="nav-number">2.3.</span> <span class="nav-text">FH-Token</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FH-ReqId"><span class="nav-number">2.4.</span> <span class="nav-text">FH-ReqId</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FH-Ts"><span class="nav-number">2.5.</span> <span class="nav-text">FH-Ts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FH-Sign"><span class="nav-number">2.6.</span> <span class="nav-text">FH-Sign</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Resources-资源"><span class="nav-number">3.</span> <span class="nav-text">Resources ( 资源 )</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#身份验证"><span class="nav-number">3.1.</span> <span class="nav-text">身份验证</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用户登录"><span class="nav-number">3.1.1.</span> <span class="nav-text">用户登录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用户退出"><span class="nav-number">3.1.2.</span> <span class="nav-text">用户退出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新Token，扩展认证到期时间"><span class="nav-number">3.1.3.</span> <span class="nav-text">更新Token，扩展认证到期时间</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户"><span class="nav-number">3.2.</span> <span class="nav-text">用户</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建用户"><span class="nav-number">3.2.1.</span> <span class="nav-text">创建用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取所有用户"><span class="nav-number">3.2.2.</span> <span class="nav-text">获取所有用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过用户ID获取用户信息"><span class="nav-number">3.2.3.</span> <span class="nav-text">通过用户ID获取用户信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改用户信息"><span class="nav-number">3.2.4.</span> <span class="nav-text">修改用户信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除用户"><span class="nav-number">3.2.5.</span> <span class="nav-text">删除用户</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#团队"><span class="nav-number">3.3.</span> <span class="nav-text">团队</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建团队"><span class="nav-number">3.3.1.</span> <span class="nav-text">创建团队</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取所有团队"><span class="nav-number">3.3.2.</span> <span class="nav-text">获取所有团队</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过团队ID获取团队"><span class="nav-number">3.3.3.</span> <span class="nav-text">通过团队ID获取团队</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新团队信息"><span class="nav-number">3.3.4.</span> <span class="nav-text">更新团队信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除团队"><span class="nav-number">3.3.5.</span> <span class="nav-text">删除团队</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加团队成员"><span class="nav-number">3.3.6.</span> <span class="nav-text">添加团队成员</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取团队成员"><span class="nav-number">3.3.7.</span> <span class="nav-text">获取团队成员</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改团队成员属性"><span class="nav-number">3.3.8.</span> <span class="nav-text">修改团队成员属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除团队成员"><span class="nav-number">3.3.9.</span> <span class="nav-text">删除团队成员</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无人机"><span class="nav-number">3.4.</span> <span class="nav-text">无人机</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#通过团队ID获取无人机"><span class="nav-number">3.4.1.</span> <span class="nav-text">通过团队ID获取无人机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改无人机信息"><span class="nav-number">3.4.2.</span> <span class="nav-text">修改无人机信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除无人机信息"><span class="nav-number">3.4.3.</span> <span class="nav-text">删除无人机信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#无人机绑定团队"><span class="nav-number">3.4.4.</span> <span class="nav-text">无人机绑定团队</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#无人机从团队解除绑定"><span class="nav-number">3.4.5.</span> <span class="nav-text">无人机从团队解除绑定</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#飞行记录"><span class="nav-number">3.5.</span> <span class="nav-text">飞行记录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#通过团队ID-用户ID-无人机序列号-获取飞行记录"><span class="nav-number">3.5.1.</span> <span class="nav-text">通过团队ID,用户ID,无人机序列号 获取飞行记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#按记录ID获取详细记录"><span class="nav-number">3.5.2.</span> <span class="nav-text">按记录ID获取详细记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除飞行记录"><span class="nav-number">3.5.3.</span> <span class="nav-text">删除飞行记录</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#飞行统计"><span class="nav-number">3.6.</span> <span class="nav-text">飞行统计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#获取飞行统计，按照团队ID和飞行ID分组"><span class="nav-number">3.6.1.</span> <span class="nav-text">获取飞行统计，按照团队ID和飞行ID分组</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直播流"><span class="nav-number">3.7.</span> <span class="nav-text">直播流</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#获取直播流状态"><span class="nav-number">3.7.1.</span> <span class="nav-text">获取直播流状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取播放直播流的地址"><span class="nav-number">3.7.2.</span> <span class="nav-text">获取播放直播流的地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取用于发布实时流的地址"><span class="nav-number">3.7.3.</span> <span class="nav-text">获取用于发布实时流的地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取所有带有直播流的无人机"><span class="nav-number">3.7.4.</span> <span class="nav-text">获取所有带有直播流的无人机</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实时报告"><span class="nav-number">3.8.</span> <span class="nav-text">实时报告</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#获取在线无人机"><span class="nav-number">3.8.1.</span> <span class="nav-text">获取在线无人机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#飞行事件报告，飞行起飞后定期报告"><span class="nav-number">3.8.2.</span> <span class="nav-text">飞行事件报告，飞行起飞后定期报告</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存储"><span class="nav-number">3.9.</span> <span class="nav-text">存储</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#上传对象"><span class="nav-number">3.9.1.</span> <span class="nav-text">上传对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取录像-图片的文件列表"><span class="nav-number">3.9.2.</span> <span class="nav-text">获取录像,图片的文件列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载对象"><span class="nav-number">3.9.3.</span> <span class="nav-text">下载对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除对象"><span class="nav-number">3.9.4.</span> <span class="nav-text">删除对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改元数据对象"><span class="nav-number">3.9.5.</span> <span class="nav-text">修改元数据对象</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程控制"><span class="nav-number">3.10.</span> <span class="nav-text">远程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#开始直播流"><span class="nav-number">3.10.1.</span> <span class="nav-text">开始直播流</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Definitions（定义）"><span class="nav-number">4.</span> <span class="nav-text">Definitions（定义）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DroneBindPara"><span class="nav-number">4.1.</span> <span class="nav-text">DroneBindPara</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DroneEditModel"><span class="nav-number">4.2.</span> <span class="nav-text">DroneEditModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DroneGetModel"><span class="nav-number">4.3.</span> <span class="nav-text">DroneGetModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DroneOnlineModel"><span class="nav-number">4.4.</span> <span class="nav-text">DroneOnlineModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FightRecordPointModel"><span class="nav-number">4.5.</span> <span class="nav-text">FightRecordPointModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FightStatisticsModel"><span class="nav-number">4.6.</span> <span class="nav-text">FightStatisticsModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FileListModel"><span class="nav-number">4.7.</span> <span class="nav-text">FileListModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FlightGetModel"><span class="nav-number">4.8.</span> <span class="nav-text">FlightGetModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FlightSummaryModel"><span class="nav-number">4.9.</span> <span class="nav-text">FlightSummaryModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FlyReport"><span class="nav-number">4.10.</span> <span class="nav-text">FlyReport</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FlyReportAccessoryModel"><span class="nav-number">4.11.</span> <span class="nav-text">FlyReportAccessoryModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FlyReportCameraModel"><span class="nav-number">4.12.</span> <span class="nav-text">FlyReportCameraModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FlyReportGimbalModel"><span class="nav-number">4.13.</span> <span class="nav-text">FlyReportGimbalModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InputErrorResponse"><span class="nav-number">4.14.</span> <span class="nav-text">InputErrorResponse</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MissionBriefModel"><span class="nav-number">4.15.</span> <span class="nav-text">MissionBriefModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MissionCreateModel"><span class="nav-number">4.16.</span> <span class="nav-text">MissionCreateModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MissionGetBriefModel"><span class="nav-number">4.17.</span> <span class="nav-text">MissionGetBriefModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MissionGetDetailModel"><span class="nav-number">4.18.</span> <span class="nav-text">MissionGetDetailModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MissionServerGenModel"><span class="nav-number">4.19.</span> <span class="nav-text">MissionServerGenModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OnlineReport"><span class="nav-number">4.20.</span> <span class="nav-text">OnlineReport</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PaginationModel"><span class="nav-number">4.21.</span> <span class="nav-text">PaginationModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ServerInternalErrorResponse"><span class="nav-number">4.22.</span> <span class="nav-text">ServerInternalErrorResponse</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StandardResponse"><span class="nav-number">4.23.</span> <span class="nav-text">StandardResponse</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SuccessResponse"><span class="nav-number">4.24.</span> <span class="nav-text">SuccessResponse</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TeamCreateModel"><span class="nav-number">4.25.</span> <span class="nav-text">TeamCreateModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TeamGetModel"><span class="nav-number">4.26.</span> <span class="nav-text">TeamGetModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TeamMate"><span class="nav-number">4.27.</span> <span class="nav-text">TeamMate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TeamMemberCreateModel"><span class="nav-number">4.28.</span> <span class="nav-text">TeamMemberCreateModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TeamMemberGetModel"><span class="nav-number">4.29.</span> <span class="nav-text">TeamMemberGetModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TeamMemberUpdateModel"><span class="nav-number">4.30.</span> <span class="nav-text">TeamMemberUpdateModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TeamUpdateModel"><span class="nav-number">4.31.</span> <span class="nav-text">TeamUpdateModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UserCreateModel"><span class="nav-number">4.32.</span> <span class="nav-text">UserCreateModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UserGetModel"><span class="nav-number">4.33.</span> <span class="nav-text">UserGetModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UserUpdateModel"><span class="nav-number">4.34.</span> <span class="nav-text">UserUpdateModel</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YingYi.Ma</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io" rel="external nofollow">Hexo</a> 强力驱动</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("duPVWsDgtsoHjC0fskVPx4PT-gzGzoHsz", "n069egVywssoikjnM91YiGn5");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
