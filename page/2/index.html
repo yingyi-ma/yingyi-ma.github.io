@@ -284,6 +284,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/简单点，学英语的方式简单点.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/简单点，学英语的方式简单点.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -423,6 +433,16 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Linux搭建vsftpd服务.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Linux搭建vsftpd服务.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -566,6 +586,16 @@ vsftpd是 “very secure FTP deamon”的缩写，是一个完全免费，开源
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Spring实现WebSocket功能案例.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Spring实现WebSocket功能案例.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -705,6 +735,16 @@ vsftpd是 “very secure FTP deamon”的缩写，是一个完全免费，开源
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/hello-world.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/hello-world.html" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -1068,6 +1108,28 @@ vsftpd是 “very secure FTP deamon”的缩写，是一个完全免费，开源
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'duPVWsDgtsoHjC0fskVPx4PT-gzGzoHsz',
+        appKey: 'n069egVywssoikjnM91YiGn5',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
 
 
 
